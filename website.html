@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>シオン会 / Shionkai | 聖書研究会</title>
+  <meta name="description" content="神戸の大学生・大学院生を中心とした聖書研究グループ「シオン会」の紹介ページです。">
+  <meta name="keywords" content="神戸, 大学, 聖書研究, KGK, キリスト教, キリスト者学生会, シオン会, 学生サークル, プロテスタント">
+  <meta name="author" content="シオン会">
+  <meta property="og:title" content="シオン会 / Shionkai - 聖書研究会 | KGK">
+  <meta property="og:description" content="シオン会は、神戸大学の学生を中心とした聖書研究グループです。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Shippori+Mincho:wght@400;500;600;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1a1410;
+      --parchment: #f5f0e8;
+      --cream: #faf7f2;
+      --gold: #b8924a;
+      --gold-light: #d4aa6a;
+      --deep-blue: #0d2545;
+      --muted: #7a6e62;
+      --line: rgba(184,146,74,0.25);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* ── LANGUAGE SWITCH ── */
+    [data-lang] { display: none; }
+    .show { display: block; }
+    .show-inline { display: inline; }
+    .show-flex { display: flex; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(245, 240, 232, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.4s;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--deep-blue);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.35s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .lang-btns {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .lang-btn {
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.3s;
+      background: none;
+      border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0;
+    }
+
+    .lang-btn:hover, .lang-btn.active { color: var(--gold); }
+    .lang-sep { color: var(--line); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--deep-blue);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 75% 50%, rgba(184,146,74,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 30%, rgba(255,255,255,0.04) 0%, transparent 60%),
+        var(--deep-blue);
+    }
+
+    /* Decorative cross SVG */
+    .hero-cross {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(340px, 38vw);
+      opacity: 0.06;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(calc(-50% - 12px)) translateX(4px); }
+    }
+
+    /* Thin horizontal rule lines */
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-lines::before,
+    .hero-lines::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: rgba(184,146,74,0.15);
+    }
+
+    .hero-lines::before { top: 25%; }
+    .hero-lines::after { bottom: 25%; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      animation: heroFadeIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
+      animation: heroFadeIn 1.4s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+      animation: heroFadeIn 1.4s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-subtitle-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      margin-top: 1rem;
+      letter-spacing: 0.25em;
+      animation: heroFadeIn 1.4s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-subtitle-en {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.9rem;
+      letter-spacing: 0.2em;
+      animation: heroFadeIn 1.4s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 2rem auto;
+      animation: heroFadeIn 1.4s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: heroFadeIn 1.4s 0.9s both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 45px;
+      background: linear-gradient(to bottom, rgba(184,146,74,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--deep-blue);
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 500;
+      color: var(--deep-blue);
+      line-height: 1.4;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT SECTION ── */
+    #about {
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* ── ABOUT ART PANEL ── */
+    .about-art-panel {
+      position: relative;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Offset border frame */
+    .about-art-panel::before {
+      content: '';
+      position: absolute;
+      top: -16px; left: -16px;
+      right: 16px; bottom: 16px;
+      border: 1px solid var(--gold);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Inner background */
+    .about-art-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--parchment) 0%, #ede8de 100%);
+    }
+
+    .about-art-svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Animated shimmer on cross */
+    @keyframes crossGlow {
+      0%, 100% { opacity: 0.13; }
+      50% { opacity: 0.22; }
+    }
+
+    .cross-glow { animation: crossGlow 4s ease-in-out infinite; }
+
+    /* Circle orbit */
+    @keyframes orbit {
+      from { transform: rotate(0deg) translateX(90px) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(90px) rotate(-360deg); }
+    }
+
+    .orbit-dot { animation: orbit 18s linear infinite; transform-origin: 50% 50%; }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #3a3228;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text-ja p {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.98rem;
+      line-height: 2.1;
+      color: #3a3228;
+      margin-bottom: 1.2rem;
+    }
+
+    .note-block {
+      margin-top: 2rem;
+      padding: 1.2rem 1.5rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(184,146,74,0.05);
+    }
+
+    .note-block p {
+      font-size: 0.82rem !important;
+      color: var(--muted) !important;
+      line-height: 1.8 !important;
+      margin-bottom: 0.4rem !important;
+    }
+
+    .note-block p:last-child { margin-bottom: 0 !important; }
+
+    /* ── ACTIVITIES SECTION ── */
+    #activities {
+      background: var(--parchment);
+      position: relative;
+    }
+
+    #activities::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .activity-item {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--line);
+      position: relative;
+      transition: background 0.35s;
+      cursor: default;
+    }
+
+    .activity-item:last-child { border-right: none; }
+
+    .activity-item:hover {
+      background: rgba(184,146,74,0.05);
+    }
+
+    .activity-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .activity-icon-svg {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 1.5rem;
+    }
+
+    .activity-name-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--deep-blue);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .activity-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--deep-blue);
+      margin-bottom: 0.8rem;
+    }
+
+    .activity-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .activity-desc-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ── CONTACT SECTION ── */
+    #contact {
+      background: var(--deep-blue);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,146,74,0.1) 0%, transparent 70%);
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .contact-text .section-label { color: var(--gold-light); }
+
+    .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-title-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.9;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-desc-ja {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 2;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .btn-insta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--gold);
+      color: var(--deep-blue);
+      padding: 1rem 2rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.3s, transform 0.2s;
+      width: fit-content;
+    }
+
+    .btn-insta:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-insta svg {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-email {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-email a {
+      color: var(--gold-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-email a:hover { color: #fff; }
+
+    .contact-kgk {
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(184,146,74,0.2);
+    }
+
+    .contact-kgk-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-kgk a {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-kgk a:hover { color: var(--gold-light); }
+
+    /* Large decorative cross in contact */
+    .contact-cross-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-cross-wrap svg {
+      width: min(260px, 35vw);
+      opacity: 0.12;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a1d38;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── THIN GOLD DIVIDER ── */
+    .gold-rule {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 0 2rem;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+
+      .nav-links { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-art-panel { display: none; }
+
+      .activities-grid { grid-template-columns: 1fr; }
+      .activity-item { border-right: none; border-bottom: 1px solid var(--line); }
+      .activity-item:last-child { border-bottom: none; }
+
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-cross-wrap { display: none; }
+
+      footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 3rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span data-lang="ja" style="display:inline;">シオン会</span>
+      <span data-lang="en">Shionkai</span>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#about" data-lang="ja" class="show">について</a>
+        <a href="#about" data-lang="en">About</a>
+      </li>
+      <li>
+        <a href="#activities" data-lang="ja" class="show">活動</a>
+        <a href="#activities" data-lang="en">Activities</a>
+      </li>
+      <li>
+        <a href="#contact" data-lang="ja" class="show">連絡</a>
+        <a href="#contact" data-lang="en">Contact</a>
+      </li>
+    </ul>
+    <div class="lang-btns">
+      <button class="lang-btn active" onclick="switchLang('ja')" id="btn-ja">日本語</button>
+      <span class="lang-sep">｜</span>
+      <button class="lang-btn" onclick="switchLang('en')" id="btn-en">English</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+
+    <!-- Decorative cross -->
+    <svg class="hero-cross" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="85" y="0" width="30" height="280" fill="white"/>
+      <rect x="0" y="75" width="200" height="30" fill="white"/>
+    </svg>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-lang="ja" style="display:block;">KGK キリスト者学生会 ― 神戸</p>
+      <p class="hero-eyebrow" data-lang="en">KGK — Kirisutosha Gakusei Kai, Kobe</p>
+
+      <h1 class="hero-title">
+        シオン会<br><em>Shionkai</em>
+      </h1>
+
+      <p class="hero-subtitle-ja" data-lang="ja" style="display:block;">聖書研究会</p>
+      <p class="hero-subtitle-en" data-lang="en">Bible Study Group</p>
+
+      <div class="hero-divider"></div>
+
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; color:rgba(255,255,255,0.38); letter-spacing:0.05em;">
+        "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
+      </p>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">About</p>
+        <h2 class="section-title-ja" data-lang="ja" style="display:block;">シオン会について</h2>
+        <h2 class="section-title" data-lang="en">About Shionkai</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-art-panel reveal">
+          <svg class="about-art-svg" viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Background subtle grid -->
+            <defs>
+              <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#b8924a" stroke-width="0.4" opacity="0.18"/>
+              </pattern>
+              <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#b8924a" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#b8924a" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="dotGold" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#d4aa6a"/>
+                <stop offset="100%" stop-color="#b8924a"/>
+              </radialGradient>
+            </defs>
+
+            <rect width="400" height="420" fill="url(#grid)"/>
+
+            <!-- Glow center -->
+            <ellipse cx="200" cy="210" rx="160" ry="160" fill="url(#centerGlow)"/>
+
+            <!-- Large outer circle -->
+            <circle cx="200" cy="210" r="150" stroke="#b8924a" stroke-width="0.8" opacity="0.25"/>
+            <!-- Mid circle -->
+            <circle cx="200" cy="210" r="108" stroke="#b8924a" stroke-width="0.8" opacity="0.3"/>
+            <!-- Inner circle -->
+            <circle cx="200" cy="210" r="68" stroke="#b8924a" stroke-width="1" opacity="0.4"/>
+
+            <!-- Cross — main -->
+            <rect x="190" y="60" width="20" height="300" rx="1" fill="#b8924a" class="cross-glow" opacity="0.18"/>
+            <rect x="80" y="168" width="240" height="20" rx="1" fill="#b8924a" class="cross-glow" opacity="0.18"/>
+
+            <!-- Cross — inner bold -->
+            <rect x="196" y="100" width="8" height="220" rx="1" fill="#b8924a" opacity="0.55"/>
+            <rect x="110" y="206" width="180" height="8" rx="1" fill="#b8924a" opacity="0.55"/>
+
+            <!-- Diamond at center -->
+            <rect x="200" y="210" width="14" height="14" rx="1" transform="rotate(45 200 210)" fill="#b8924a" opacity="0.9"/>
+            <rect x="200" y="210" width="22" height="22" rx="1" transform="rotate(45 200 210)" fill="none" stroke="#b8924a" stroke-width="1" opacity="0.5"/>
+
+            <!-- Four corner ornaments -->
+            <g opacity="0.45">
+              <!-- top-left -->
+              <line x1="65" y1="65" x2="95" y2="65" stroke="#b8924a" stroke-width="1.2"/>
+              <line x1="65" y1="65" x2="65" y2="95" stroke="#b8924a" stroke-width="1.2"/>
+              <!-- top-right -->
+              <line x1="335" y1="65" x2="305" y2="65" stroke="#b8924a" stroke-width="1.2"/>
+              <line x1="335" y1="65" x2="335" y2="95" stroke="#b8924a" stroke-width="1.2"/>
+              <!-- bottom-left -->
+              <line x1="65" y1="355" x2="95" y2="355" stroke="#b8924a" stroke-width="1.2"/>
+              <line x1="65" y1="355" x2="65" y2="325" stroke="#b8924a" stroke-width="1.2"/>
+              <!-- bottom-right -->
+              <line x1="335" y1="355" x2="305" y2="355" stroke="#b8924a" stroke-width="1.2"/>
+              <line x1="335" y1="355" x2="335" y2="325" stroke="#b8924a" stroke-width="1.2"/>
+            </g>
+
+            <!-- Orbiting dot -->
+            <g style="transform-origin:200px 210px">
+              <circle cx="200" cy="120" r="4" fill="url(#dotGold)" class="orbit-dot" opacity="0.85"/>
+            </g>
+
+            <!-- Radial tick marks -->
+            <g opacity="0.22" stroke="#b8924a" stroke-width="0.8">
+              <line x1="200" y1="56" x2="200" y2="68"/>
+              <line x1="200" y1="352" x2="200" y2="364"/>
+              <line x1="56" y1="210" x2="68" y2="210"/>
+              <line x1="332" y1="210" x2="344" y2="210"/>
+              <line x1="94" y1="104" x2="102" y2="112"/>
+              <line x1="298" y1="308" x2="306" y2="316"/>
+              <line x1="94" y1="316" x2="102" y2="308"/>
+              <line x1="298" y1="112" x2="306" y2="104"/>
+            </g>
+
+            <!-- Scripture text arc (purely decorative) -->
+            <text font-family="Cormorant Garamond, serif" font-size="9.5" fill="#b8924a" opacity="0.35" letter-spacing="3">
+              <textPath href="#arcPath" startOffset="5%">Psalm 119 : 105 · Your word is a lamp to my feet ·</textPath>
+            </text>
+            <defs>
+              <path id="arcPath" d="M 50,210 A 150,150 0 0,1 350,210"/>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="about-text reveal">
+          <div data-lang="ja" style="display:block;" class="about-text-ja">
+            <p>シオン会は、<strong>KGK（キリスト者学生会）</strong> の一部として、学生間の交流と聖書研究を目的に活動しています。</p>
+            <p>週1回集まり、聖書に親しみ、祈り合い、学生同士で励まし合っています。</p>
+            <p>クリスチャンでない方の参加も大歓迎です。学部・専攻を問わず、どなたでも歓迎いたします。</p>
+            <div class="note-block">
+              <p>※ エホバの証人、統一教会、モルモン教、摂理などとは関係ありません。</p>
+              <p>※ 営利目的ではありません。</p>
+            </div>
+          </div>
+
+          <div data-lang="en" class="about-text">
+            <p>Shionkai is a student-led Bible study group affiliated with <strong>KGK (Kirisutosha Gakusei Kai)</strong>.</p>
+            <p>We gather weekly to read the Bible, pray together, and encourage one another in faith and life.</p>
+            <p>All are welcome — regardless of background or belief. KGK is an affiliate member of <strong>IFES</strong> (International Fellowship of Evangelical Students).</p>
+            <div class="note-block">
+              <p>Note: We are not affiliated with Jehovah's Witnesses, the Unification Church, the LDS Church, or any other religious organisations.</p>
+              <p>Note: We are not operated for profit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ACTIVITIES -->
+  <section id="activities">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Activities</p>
+        <h2 class="section-title-ja" data-lang="ja" style="display:block;">活動内容</h2>
+        <h2 class="section-title" data-lang="en">What We Do</h2>
+        <div class="gold-rule"></div>
+      </div>
+
+      <div class="activities-grid reveal">
+        <!-- Bible Study -->
+        <div class="activity-item">
+          <div class="activity-number">01</div>
+          <!-- Book / Bible SVG icon -->
+          <svg class="activity-icon-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="8" y="6" width="30" height="40" rx="2" stroke="#b8924a" stroke-width="1.5"/>
+            <rect x="5" y="8" width="6" height="36" rx="1.5" fill="#b8924a" opacity="0.25"/>
+            <line x1="14" y1="16" x2="32" y2="16" stroke="#b8924a" stroke-width="1.2" opacity="0.6"/>
+            <line x1="14" y1="22" x2="32" y2="22" stroke="#b8924a" stroke-width="1.2" opacity="0.6"/>
+            <line x1="14" y1="28" x2="26" y2="28" stroke="#b8924a" stroke-width="1.2" opacity="0.6"/>
+            <line x1="26" y1="34" x2="26" y2="46" stroke="#b8924a" stroke-width="1.2" opacity="0.5"/>
+            <line x1="20" y1="40" x2="32" y2="40" stroke="#b8924a" stroke-width="1.2" opacity="0.5"/>
+          </svg>
+          <p class="activity-name-ja" data-lang="ja" style="display:block;">聖書研究</p>
+          <p class="activity-name-en" data-lang="en">Bible Study</p>
+          <p class="activity-desc-ja" data-lang="ja" style="display:block;">聖書を開き、共に学び合います。</p>
+          <p class="activity-desc" data-lang="en">We open the Bible together, ask honest questions, and explore its meaning for our lives.</p>
+        </div>
+
+        <!-- Prayer -->
+        <div class="activity-item">
+          <div class="activity-number">02</div>
+          <!-- Prayer: cross icon -->
+          <svg class="activity-icon-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="crossGrad" x1="26" y1="4" x2="26" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#d4aa6a"/>
+                <stop offset="100%" stop-color="#b8924a"/>
+              </linearGradient>
+            </defs>
+            <!-- Vertical bar -->
+            <rect x="22.5" y="4" width="7" height="44" rx="1.5" fill="url(#crossGrad)"/>
+            <!-- Horizontal bar -->
+            <rect x="8" y="16" width="36" height="7" rx="1.5" fill="url(#crossGrad)"/>
+            <!-- Subtle outer glow ring -->
+            <circle cx="26" cy="26" r="23" stroke="#b8924a" stroke-width="0.6" opacity="0.2"/>
+          </svg>
+          <p class="activity-name-ja" data-lang="ja" style="display:block;">お祈り</p>
+          <p class="activity-name-en" data-lang="en">Prayer</p>
+          <p class="activity-desc-ja" data-lang="ja" style="display:block;">互いのために祈り合います。</p>
+          <p class="activity-desc" data-lang="en">We pray for and with one another, sharing burdens and celebrating joys together.</p>
+        </div>
+
+        <!-- Fellowship -->
+        <div class="activity-item">
+          <div class="activity-number">03</div>
+          <!-- People / fellowship SVG icon -->
+          <svg class="activity-icon-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="16" cy="16" r="6" stroke="#b8924a" stroke-width="1.4"/>
+            <circle cx="36" cy="16" r="6" stroke="#b8924a" stroke-width="1.4"/>
+            <circle cx="26" cy="13" r="6" stroke="#b8924a" stroke-width="1.4" fill="rgba(184,146,74,0.08)"/>
+            <path d="M6 42 C6 34 10 30 16 30" stroke="#b8924a" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M46 42 C46 34 42 30 36 30" stroke="#b8924a" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M16 42 C16 34 20 30 26 30 C32 30 36 34 36 42" stroke="#b8924a" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <p class="activity-name-ja" data-lang="ja" style="display:block;">交流イベント</p>
+          <p class="activity-name-en" data-lang="en">Fellowship</p>
+          <p class="activity-desc-ja" data-lang="ja" style="display:block;">楽しいイベントも盛りだくさん！</p>
+          <p class="activity-desc" data-lang="en">Beyond Bible study, we hold casual get-togethers, shared meals, and seasonal events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-text reveal">
+          <p class="section-label">Contact</p>
+          <h2 class="contact-title-ja" data-lang="ja" style="display:block;">お問い合わせ</h2>
+          <h2 class="contact-title" data-lang="en">Get in Touch</h2>
+
+          <p class="contact-desc-ja" data-lang="ja" style="display:block;">活動情報はInstagramで発信中！<br>InstagramのDMまたはメールでご連絡ください。</p>
+          <p class="contact-desc" data-lang="en">We post updates on Instagram. Feel free to reach out via DM or email — everyone is welcome.</p>
+
+          <br>
+
+          <div class="contact-actions">
+            <a href="https://www.instagram.com/kobeuniv_shion" class="btn-insta" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              Instagram
+            </a>
+
+            <p class="contact-email">
+              Email: <a href="mailto:shionkai.kobe@gmail.com">shionkai.kobe@gmail.com</a>
+            </p>
+
+            <div class="contact-kgk">
+              <p class="contact-kgk-label">KGK Kansai</p>
+              <p data-lang="ja" style="display:block;"><a href="http://kgk-kansai.strikingly.com" target="_blank" rel="noopener">http://kgk-kansai.strikingly.com</a></p>
+              <p data-lang="en"><a href="http://kgk-kansai.strikingly.com" target="_blank" rel="noopener">http://kgk-kansai.strikingly.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative cross -->
+        <div class="contact-cross-wrap reveal">
+          <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="85" y="0" width="30" height="280" fill="white"/>
+            <rect x="0" y="75" width="200" height="30" fill="white"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">シオン会 / Shionkai</span>
+    <span class="footer-copy" data-lang="ja" style="display:inline;">© シオン会｜本サイトはシオン会によって運営されています。</span>
+    <span class="footer-copy" data-lang="en">© Shionkai · Maintained by the Shionkai Bible Study Group</span>
+  </footer>
+
+
+  <script>
+    /* ── Language Switch ── */
+    function switchLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        const match = el.getAttribute('data-lang') === lang;
+        if (!match) { el.style.display = 'none'; return; }
+        // inlineにすべき要素（span, a など）はinline、それ以外はblock
+        const inline = ['SPAN', 'A', 'EM', 'STRONG'];
+        el.style.display = inline.includes(el.tagName) ? 'inline' : 'block';
+      });
+      document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => switchLang('ja'));
+
+    /* ── Scroll Reveal ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 0.08) + 's';
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Nav shrink on scroll ── */
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 60) {
+        nav.style.padding = '0.8rem 3rem';
+      } else {
+        nav.style.padding = '1.2rem 3rem';
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
